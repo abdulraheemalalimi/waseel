@@ -1,0 +1,26 @@
+name: waseel_app
+description: تطبيق وصل (WASEEL) للتوصيل بواجهة عربية RTL.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  intl: any
+  google_fonts: ^9.0.0
+
+dev_dependencies:
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+
+  # ملاحظة للمبتدئ: عند إضافة صورك (مثل courier.png و avatar.jpg) ضعها في
+  # مجلد assets/images/ ثم أزل علامة # من السطرين التاليين:
+  # assets:
+  #   - assets/images/
