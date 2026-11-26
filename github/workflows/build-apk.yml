@@ -1,0 +1,41 @@
+      
+name: Build Waseel Android APK
+on:
+  push: 
+ branches: [ main ] 
+workflow_dispatch:
+
+jobs: 
+  build:   
+    runs-on: ubuntu-latest 
+   
+    steps: 
+      - name: ﺗﺤﻤﻴﻞ ﻣلﻔﺎت الﻤﺸﺮوع 
+        uses: actions/checkout@v6     
+ 
+      - name: ﺗﺠﻬﻴﺰ Java 17 الﻤﻄلﻮﺑﺔ لﺒﻨﺎء أﻧﺪروﻳﺪ  
+        uses: actions/setup-java@v5        
+        with:          
+         distribution: 'temurin'          
+         java-version: '17'      
+      - name: ﺗﺠﻬﻴﺰ أﺣﺪث ﻧﺴﺨﺔ ﻣﺴﺘﻘﺮة ﻣﻦ Flutter ﻣﻊ الﺘﺨﺰﻳﻦ الﻤﺆﻗﺖ        
+        uses: subosito/flutter-action@v2
+        with:
+        channel: 'stable'          
+         cache: true      
+       - name:توليد مجلد android تلقائيا اذا كان مفقودا
+         run: |                    
+            if [ ! -d "android" ]; then   
+            flutter create --platforms=android --project-name waseel_app .          
+            fi     
+      - name: ﺗﻨﺰﻳﻞ الﺤﺰم والﺨﻄﻮط  
+        run: flutter pub get
+        
+      - name: ﺑﻨﺎء ﻣلﻒ ﺗﻄﺒﻴﻖ أﻧﺪروﻳﺪ APK        
+        run: flutter build apk --release     
+
+     - name: ﺣﻔﻆ ﻣلﻒ APK ﺟﺎﻫﺰا ً للﺘﻨﺰﻳﻞ الﻤﺒﺎﺷﺮ 
+       uses: actions/upload-artifact@v7 
+       with:
+         path: build/app/outputs/flutter-apk/app-release.apk          
+         archive: false
